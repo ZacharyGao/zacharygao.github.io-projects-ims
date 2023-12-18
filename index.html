@@ -4,7 +4,7 @@
 <head>
     <title>Home</title>
 
-    
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -17,82 +17,138 @@
 </head>
 
 <body>
-    <p>Hello World</p>
-    <button>test button</button>
 
 
-    <form>
-        <input placeholder=input...>
-    </form>
+    <!-- sidenav bar -->
+    <div class="sidenav">
+        <div class="closebtn" onclick="closeNav()">
+            <a href="javascript:void(0)">×</a>
+        </div>
+
+        <div class="search" onkeyup="searchMenu()">
+            <input type="text" id="mySearch" placeholder="Search" title="Type in a category">
+        </div>
+
+        <ul id="myMenu">
+            <li data-page="index"><a href="index.php">Home</a></li>
+            <li data-page="dashboard"><a href="dashboard.php">Dashboard</a></li>
+            <li><a href="search_people.php"><i class="fa fa-fw fa-user"></i> People</a></li>
+            <li data-page="search_people"><a href="search_people.php">People</a></li>
+
+            <li data-page="search_vehicle"><a href="search_vehicle.php">Vehicle</a></li>
+            <li data-page="add_vehicle"><a href="add_vehicle.php">Add Vehicle</a></li>
+            <li data-page="report"><a href="report.php">Report</a></li>
 
 
-    <table>
-        <tr>
-            <th>a</th>
-            <th>b</th>
-            <th>c</th>
-        </tr>
-        <tr>
-            <td>ss</td>
-        </tr>
-    </table>
+            <li data-page="fine"><a href="fine.php">Fine</a></li>
+            <li data-page="add_police"><a href="add_police.php">Add Police User</a></li>
+            <li data-page="audit_log"><a href="audit_log.php">Audit</a></li>
+
+
+            <a href="logout.php" class="split">Logout</a>
+            <a href="login.php" class="split">Login</a>
+        </ul>
+    </div>
 
 
 
-    <table class="table table-striped">
-        <thead>
+    <main>
+        <button class="openbtn" onclick="toggleNav()">☰</button>
+
+        <p>Hello World</p>
+        <button>test button</button>
+
+
+        <form>
+            <input placeholder=input...>
+        </form>
+
+
+        <table>
             <tr>
-                <th>People_ID</th>
-                <th>People_name</th>
-                <th>People_address</th>
-                <th>People_license</th>
+                <th>a</th>
+                <th>b</th>
+                <th>c</th>
             </tr>
-        </thead>
-        <tbody>
             <tr>
-                <td>id test</td>
-                <td>
-                    <?php echo $person["People_name"]; ?>
-                </td>
-                <td>
-                    <?php echo $person["People_address"]; ?>
-                </td>
-                <td>
-                    <?php echo $person["People_licence"]; ?>
-                </td>
+                <td>ss</td>
             </tr>
-        </tbody>
-    </table>
+        </table>
 
 
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>People_ID</th>
-                <th>People_name</th>
-                <th>People_address</th>
-                <th>People_license</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($people as $person) : ?>
-            <tr>
-                <td>
-                    <?php echo $person["People_ID"]; ?>
-                </td>
-                <td>
-                    <?php echo $person["People_name"]; ?>
-                </td>
-                <td>
-                    <?php echo $person["People_address"]; ?>
-                </td>
-                <td>
-                    <?php echo $person["People_licence"]; ?>
-                </td>
-            </tr>
-            <?php endforeach; ?>
-        </tbody>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>People_ID</th>
+                    <th>People_name</th>
+                    <th>People_address</th>
+                    <th>People_license</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>id test</td>
+                    <td>
+                        <?php echo $person["People_name"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $person["People_address"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $person["People_licence"]; ?>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>People_ID</th>
+                    <th>People_name</th>
+                    <th>People_address</th>
+                    <th>People_license</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($people as $person) : ?>
+                <tr>
+                    <td>
+                        <?php echo $person["People_ID"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $person["People_name"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $person["People_address"]; ?>
+                    </td>
+                    <td>
+                        <?php echo $person["People_licence"]; ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+
+
+        </table>
+
+
+
+    </main>
+
+    <footer>
+        <hr>
+        <p><a href="index.php">back to home</a></p>
+        <p>
+            © 2023 - 4039 DIS Database Interface and Software Design Principle
+            <!-- - <a href="#">Disclaimer</a> -->
+        </p>
+    </footer>
+
+    <script src="js/script.js"></script>
 
 </body>
 
