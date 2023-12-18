@@ -4,11 +4,9 @@
 <button>test button</button>
 
 
-
 <form>
-    <input placeholder=input...>
+<input placeholder=input...>
 </form>
-
 
 
 
@@ -28,30 +26,10 @@
 
 
 
-<table class="table table-striped" id="searchPeople">
-                    <thead>
-                        <tr>
-                            <th>People_ID</th>
-                            <th>People_name</th>
-                            <th>People_address</th>
-                            <th>People_license</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($people as $person) { ?>
-                            <tr>
-                                <td><?php echo $person["People_ID"]; ?></td>
-                                <td><?php echo $person["People_name"]; ?></td>
-                                <td><?php echo $person["People_address"]; ?></td>
-                                <td><?php echo $person["People_licence"]; ?></td>
-                            </tr>
-                        <?php } ?>
-                    </tbody>
-                </table>
 
 
 
-<table>
+<table class="table table-striped">
     <thead>
         <tr>
             <th>People_ID</th>
