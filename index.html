@@ -58,14 +58,14 @@
         <button class="openbtn" onclick="toggleNav()">☰</button>
 
         <h1>
-            <?php echo "Incidents Management system (IMS)"; ?>
+            Incidents Management system (IMS)
         </h1>
 
         <p>Please login first. <a href='login.php'>Login</a></p>
         <hr>
 
 
-        <div w3-include-html="content.html"></div> 
+        <div w3-include-html="incontent.html"></div> 
 
         <script>
             includeHTML();
@@ -133,13 +133,13 @@
                 <tr>
                     <td>id test</td>
                     <td>
-                        <?php echo $person["People_name"]; ?>
+                        $person["People_name"]
                     </td>
                     <td>
-                        <?php echo $person["People_address"]; ?>
+                        $person["People_address"]
                     </td>
                     <td>
-                        <?php echo $person["People_licence"]; ?>
+                        $person["People_licence"]
                     </td>
                 </tr>
             </tbody>
@@ -157,22 +157,22 @@
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($people as $person) : ?>
+                foreach ($people as $person):
                 <tr>
                     <td>
-                        <?php echo $person["People_ID"]; ?>
+                        $person["People_ID"]
                     </td>
                     <td>
-                        <?php echo $person["People_name"]; ?>
+                        $person["People_name"]
                     </td>
                     <td>
-                        <?php echo $person["People_address"]; ?>
+                        $person["People_address"]
                     </td>
                     <td>
-                        <?php echo $person["People_licence"]; ?>
+                        $person["People_licence"]
                     </td>
                 </tr>
-                <?php endforeach; ?>
+                endforeach
             </tbody>
         </table>
 
