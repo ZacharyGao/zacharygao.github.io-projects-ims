@@ -1,30 +1,88 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>PHP Test</title>
+    <title>Home</title>
 </head>
+
 <body>
     <?php echo '<p>Hello World</p>'; ?>
+    <button>test button</button>
+
+
+    <form>
+        <input placeholder=input...>
+    </form>
+
+
+    <table>
+        <tr>
+            <th>a</th>
+            <th>b</th>
+            <th>c</th>
+        </tr>
+        <tr>
+            <td>ss</td>
+        </tr>
+    </table>
+
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>People_ID</th>
+                <th>People_name</th>
+                <th>People_address</th>
+                <th>People_license</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>id test</td>
+                <td>
+                    <?php echo $person["People_name"]; ?>
+                </td>
+                <td>
+                    <?php echo $person["People_address"]; ?>
+                </td>
+                <td>
+                    <?php echo $person["People_licence"]; ?>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>People_ID</th>
+                <th>People_name</th>
+                <th>People_address</th>
+                <th>People_license</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($people as $person) : ?>
+            <tr>
+                <td>
+                    <?php echo $person["People_ID"]; ?>
+                </td>
+                <td>
+                    <?php echo $person["People_name"]; ?>
+                </td>
+                <td>
+                    <?php echo $person["People_address"]; ?>
+                </td>
+                <td>
+                    <?php echo $person["People_licence"]; ?>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </tbody>
+
 </body>
+
 </html>
-
-```php
-<?php
-    // PHP code goes here
-?>
-```
-
-- A PHP file normally contains HTML tags, and some PHP scripting code.
-- Below, we have an example of a simple PHP file, with a PHP script that uses a built-in PHP function "echo" to output the text "Hello World!" on a web page:
-
-```php
-<!DOCTYPE html>
-<html>
-<head>
-    <title>PHP Test</title>
-</head>
-<body>
-    <?php echo '<p>Hello World</p>'; ?>
-</body>
-</html>
-```
