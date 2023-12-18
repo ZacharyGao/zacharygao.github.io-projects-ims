@@ -47,7 +47,7 @@
             <li data-page="audit_log"><a href="audit_log.php">Audit</a></li>
 
 
-            <a href="logout.php" class="split">Logout</a>
+            <!-- <a href="logout.php" class="split">Logout</a> -->
             <a href="login.php" class="split">Login</a>
         </ul>
     </div>
@@ -57,9 +57,39 @@
     <main>
         <button class="openbtn" onclick="toggleNav()">☰</button>
 
-        <p>Hello World</p>
+        <h1>
+            <?php echo "Incidents Management system (IMS)"; ?>
+        </h1>
+
+        <p>Please login first. <a href='login.php'>Login</a></p>
+        <hr>
+
+        <h2>Coursework 2 - Incidents Management system</h2>
+
+        <p>
+            The IMS is a web-based system that allows police officers to manage incidents, vehicles, and people. The
+            system is to be used by police officers to record incidents, and to add and search for people and vehicles.
+            The system is also to be used by police administrators to add new police officers and to associate fines to
+            incidents. The system also provides an audit trail of database accesses and changes.
+        </p>
+        <br>
+
         <button>test button</button>
 
+        <table class="table table-striped">
+            <tr>
+                <th>username</th>
+                <th>password</th>
+            </tr>
+            <tr>
+                <td>mcnulty</td>
+                <td>plod123</td>
+            </tr>
+            <tr>
+                <td>moreland</td>
+                <td>fuzz42</td>
+            </tr>
+        </table>
 
         <form>
             <input placeholder=input...>
@@ -133,8 +163,6 @@
                 </tr>
                 <?php endforeach; ?>
             </tbody>
-
-
         </table>
 
 
