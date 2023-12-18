@@ -1,0 +1,1069 @@
+/* MVP.css v1.14 - https://github.com/andybrewer/mvp */
+
+:root {
+    --active-brightness: 0.80;
+    --border-radius: 5px;
+    --box-shadow: 2px 2px 10px;
+    /* --color-accent: #118bee15; */
+    --color-accent: #EBEBEB;
+    --color-bg: #fff;
+    --color-bg-secondary: #e9e9e9;
+    --color-link: #D7336C;
+    --color-secondary: #792D85;
+    --color-secondary-accent: #920de90b;
+    --color-shadow: #f4f4f4;
+    --color-table: #10263B;
+    --color-text: #10263B;
+    --color-text-secondary: #999;
+    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    --hover-brightness: 1.2;
+    --justify-important: center;
+    --justify-normal: left;
+    --line-height: 1.5;
+    --width-card: 285px;
+    --width-card-medium: 460px;
+    --width-card-wide: 800px;
+    --width-content: 1080px;
+}
+
+/* @media (prefers-color-scheme: dark) {
+    :root[color-mode="user"] {
+        --color-accent: #0097fc4f;
+        --color-bg: #333;
+        --color-bg-secondary: #555;
+        --color-link: #0097fc;
+        --color-secondary: #e20de9;
+        --color-secondary-accent: #e20de94f;
+        --color-shadow: #bbbbbb20;
+        --color-table: #0097fc;
+        --color-text: #f7f7f7;
+        --color-text-secondary: #aaa;
+    }
+} */
+
+html {
+    scroll-behavior: smooth;
+}
+
+/* @media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+} */
+
+/* Layout */
+article aside {
+    background: var(--color-secondary-accent);
+    border-left: 4px solid var(--color-secondary);
+    padding: 0.01rem 0.8rem;
+}
+
+body {
+    background: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-family);
+    line-height: var(--line-height);
+    margin: 0;
+    overflow-x: hidden;
+    padding: 0;
+}
+
+footer,
+header,
+main {
+    margin: 0 auto;
+    max-width: var(--width-content);
+    margin-left: 20%;
+    padding: 3rem 0rem;
+    transition: margin-left .5s;
+
+}
+
+hr {
+    background-color: var(--color-bg-secondary);
+    border: none;
+    height: 1px;
+    margin: 4rem 0;
+    width: 100%;
+}
+
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: var(--justify-important);
+}
+
+section img,
+article img {
+    max-width: 100%;
+}
+
+section pre {
+    overflow: auto;
+}
+
+section aside {
+    border: 1px solid var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow) var(--color-shadow);
+    margin: 1rem;
+    padding: 1.25rem;
+    width: var(--width-card);
+}
+
+section aside:hover {
+    box-shadow: var(--box-shadow) var(--color-bg-secondary);
+}
+
+[hidden] {
+    display: none;
+}
+
+/* Headers */
+article header,
+div header,
+main header {
+    padding-top: 0;
+}
+
+header {
+    text-align: var(--justify-important);
+}
+
+header a b,
+header a em,
+header a i,
+header a strong {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+header nav img {
+    margin: 1rem 0;
+}
+
+section header {
+    padding-top: 0;
+    width: 100%;
+    /* width: var(--width-content); */
+}
+
+/* Nav */
+nav {
+    align-items: left;
+    display: flex;
+    list-style: none;
+    font-weight: bold;
+    margin-bottom: 7rem;
+    overflow: hidden;
+
+    /* flex-wrap: wrap; */
+
+    /* margin: 0% 1rem; */
+    /* padding: 0rem 1rem; */
+    /* transform: translate(50%, 50%); */
+    /* justify-content: space-between; */
+    background-color: #111;
+    /* background-color: #118bee; */
+    /* width: var(--width-content); */
+    width: 100%;
+    /* top: 0%; */
+    /* left: 20%; */
+
+    position: fixed;
+    font-size: 18px;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    color: wheat;
+    width: 100%;
+    background-color: #222;
+}
+
+nav ul li {
+    display: inline-block;
+    /* margin: 0 0.5rem; */
+    /* margin: 0rem 1rem; */
+    /* padding: 0rem 0.5rem; */
+    /* background-color: #118bee; */
+    position: relative;
+    text-align: left;
+    width: auto;
+}
+
+nav ul li a {
+    display: inline-block;
+    /* display: inline-block; */
+    /* color: wheat; */
+    /* padding: 1rem 1rem; */
+    text-decoration: none;
+    /* position: relative; */
+    text-align: left;
+}
+
+/* Right-aligned (split) link inside the navigation bar */
+nav ul li a.split {
+    float: right;
+    display: block;
+    margin-left: right;
+
+    text-align: left;
+    background-color: #04AA6D;
+    color: white;
+}
+
+nav ul li a.active {
+    background-color: #118bee;
+    color: white;
+}
+
+nav ul li a:hover {
+    /* background-color: #118bee; */
+    background-color: #04AA6D;
+    color: white;
+}
+
+
+
+/* 
+nav a:hover:not(.active) {
+    background-color: #118bee;
+    color: white;
+} */
+
+
+/* nav a:hover:active {
+    background-color: #118bee;
+    background-color: #04AA6D;
+    color: white;
+} */
+
+/* Nav Dropdown */
+nav ul li:hover ul {
+    display: block;
+}
+
+nav ul li ul {
+    background: var(--color-bg);
+    border: 1px solid var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow) var(--color-shadow);
+    display: none;
+    height: auto;
+    left: -2px;
+    padding: .5rem 1rem;
+    position: absolute;
+    top: 1.7rem;
+    white-space: nowrap;
+    width: auto;
+    z-index: 1;
+}
+
+nav ul li ul::before {
+    /* fill gap above to make mousing over them easier */
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: -0.5rem;
+    height: 0.5rem;
+}
+
+nav ul li ul li,
+nav ul li ul li a {
+    display: block;
+    /* background-color: #920de9; */
+}
+
+
+/* Side Nav Bar */
+.sidenav {
+    height: 100%;
+    width: 15%;
+    position: fixed;
+    /* z-index: 1; */
+    top: 0;
+    left: 0;
+    background-color: #10263B;
+    overflow-x: hidden;
+    padding-top: 60px;
+    transition: 0.5s;
+    text-decoration: none;
+    list-style: none;
+    display: block;
+}
+
+.sidenav ul {
+    list-style: none;
+    padding: 0.6rem 0rem;
+    color: wheat;
+    width: 100%;
+    background-color: #405162;
+    height: 60%;
+    display: block;
+
+}
+
+.sidenav ul li {
+    display: block;
+    margin: 0 0.5rem;
+    position: relative;
+    text-align: left;
+}
+
+.sidenav ul li a {
+    padding: 8px 8px 8px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    /* color: #818181; */
+    color: #F3F4F5;
+    width: 90%;
+    transition: 0.3s;
+    display: block;
+}
+
+.sidenav ul .dropdown {
+    cursor: default;
+
+    float: left;
+    overflow: hidden;
+}
+
+
+.sidenav ul .dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.sidenav ul .dropdown .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.sidenav ul .dropdown .dropdown-container a {
+    float: none;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.sidenav ul li a i {
+    /* color: #D7336C; */
+    color: white;
+    border: 0cap;
+    margin: 0;
+    left: 0;
+    width: 5px;
+    padding: 0 10px 0 0px;
+}
+
+.sidenav ul a.split {
+    /* float: bottom; */
+    padding: 8px 8px 8px 12px;
+    text-decoration: none;
+    font-size: 20px;
+    position: absolute;
+    text-align: left;
+    background-color: #D7336C;
+    color: white;
+    /* top: 10%; */
+    /* left: 10%; */
+    /* bottom: 20%; */
+    top: 73%;
+    /* display: block; */
+    margin-left: auto;
+    /* top: 1800%; */
+    /* right: 0%; */
+    left: 6%;
+    width: auto;
+    z-index: 1;
+    border-radius: 5px 5px 5px 5px;
+}
+
+
+.sidenav ul li a:hover {
+    background-color: #D7336C;
+    color: white;
+}
+
+.sidenav ul li a.active {
+    background-color: #D7336C;
+    color: white;
+}
+
+.sidenav ul li.active {
+    
+    background-color: #D7336C;
+    color: white;
+
+    display: block;
+    margin: 0 0.5rem;
+    position: relative;
+    text-align: left;
+}
+
+
+.sidenav .closebtn {
+    /* position: relative; */
+    top: 0%;
+    right: 5%;
+    position: absolute;
+    font-size: 36px;
+    /* margin-left: 50px; */
+    color: white;
+    background: #10263B;
+    border: 0px solid #10263B;
+
+}
+
+.sidenav .closebtn a {
+    top: 0%;
+    right: 5%;
+    position: absolute;
+    font-size: 36px;
+    /* margin-left: 50px; */
+    color: white;
+    background: #10263B;
+    border: 0px solid #10263B;
+
+    text-decoration: none;
+    z-index: 1;
+}
+
+.sidenav .closebtn a:hover {
+    background-color: #10263B;
+    /* text-decoration: underline; */
+    /* color: white; */
+    color: #D7336C;
+}
+
+
+.openbtn {
+    font-size: 24px;
+    cursor: pointer;
+    background-color: #10263B;
+    /* color: white; */
+    /* padding: 10px 15px; */
+    border: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    border-radius: var(--border-radius);
+    display: inline-block;
+    /* font-size: medium; */
+    font-weight: bold;
+    line-height: var(--line-height);
+    margin: 0.5rem 0.5rem;
+    padding: 0.3rem 0.6rem;
+
+}
+
+.openbtn:hover {
+    background-color: #10263B;
+}
+
+.sidenav .search {
+    margin: 0.4rem 0.4rem;
+    /* padding: 0.3rem 0rem; */
+    /* border: none; */
+}
+
+.sidenav .search input {
+    width: calc(100% - 1.8rem);
+    display: block;
+    /* margin: 0.5rem 0.5rem; */
+    /* padding: 0.3rem 0.3rem; */
+    /* font-size: 16px; */
+    /* margin-bottom: 0rem  */
+}
+
+
+/* Typography */
+code,
+samp {
+    background-color: var(--color-accent);
+    border-radius: var(--border-radius);
+    color: var(--color-text);
+    display: inline-block;
+    margin: 0 0.1rem;
+    padding: 0 0.5rem;
+}
+
+details {
+    margin: 1.3rem 0;
+}
+
+details summary {
+    font-weight: bold;
+    cursor: pointer;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    line-height: var(--line-height);
+}
+
+mark {
+    padding: 0.1rem;
+}
+
+ol li,
+ul li {
+    padding: 0.2rem 0;
+}
+
+p {
+    margin: 0.75rem 0;
+    padding: 0;
+    width: 100%;
+}
+
+pre {
+    margin: 1rem 0;
+    max-width: var(--width-card-wide);
+    padding: 1rem 0;
+}
+
+pre code,
+pre samp {
+    display: block;
+    max-width: var(--width-card-wide);
+    padding: 0.5rem 2rem;
+    white-space: pre-wrap;
+}
+
+small {
+    color: var(--color-text-secondary);
+}
+
+sup {
+    background-color: var(--color-secondary);
+    border-radius: var(--border-radius);
+    color: var(--color-bg);
+    font-size: xx-small;
+    font-weight: bold;
+    margin: 0.2rem;
+    padding: 0.2rem 0.3rem;
+    position: relative;
+    top: -2px;
+}
+
+/* Links */
+a {
+    color: var(--color-link);
+    display: inline-block;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+a:active {
+    filter: brightness(var(--active-brightness));
+}
+
+a:hover {
+    filter: brightness(var(--hover-brightness));
+}
+
+a b,
+a em,
+a i,
+a strong,
+button,
+input[type="submit"] {
+    border-radius: var(--border-radius);
+    display: inline-block;
+    font-size: medium;
+    font-weight: bold;
+    line-height: var(--line-height);
+    margin: 0.5rem 0;
+    padding: 1rem 2rem;
+}
+
+button,
+input[type="submit"] {
+    font-family: var(--font-family);
+}
+
+button:active,
+input[type="submit"]:active {
+    filter: brightness(var(--active-brightness));
+}
+
+button:hover,
+input[type="submit"]:hover {
+    cursor: pointer;
+    filter: brightness(var(--hover-brightness));
+}
+
+a b,
+a strong,
+button,
+input[type="submit"] {
+    background-color: var(--color-link);
+    border: 2px solid var(--color-link);
+    color: var(--color-bg);
+}
+
+a em,
+a i {
+    border: 2px solid var(--color-link);
+    border-radius: var(--border-radius);
+    color: var(--color-link);
+    display: inline-block;
+    padding: 1rem 2rem;
+}
+
+article aside a {
+    color: var(--color-secondary);
+}
+
+/* Images */
+figure {
+    margin: 0;
+    padding: 0;
+}
+
+figure img {
+    max-width: 100%;
+}
+
+figure figcaption {
+    color: var(--color-text-secondary);
+}
+
+/* Forms */
+button:disabled,
+input:disabled {
+    background: var(--color-bg-secondary);
+    border-color: var(--color-bg-secondary);
+    color: var(--color-text-secondary);
+    cursor: not-allowed;
+}
+
+button[disabled]:hover,
+input[type="submit"][disabled]:hover {
+    filter: none;
+}
+
+form {
+    border: 1px solid var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow) var(--color-shadow);
+    display: block;
+    max-width: var(--width-card-wide);
+    min-width: var(--width-card);
+    padding: 1.5rem;
+    text-align: var(--justify-normal);
+}
+
+form .form-group {
+    /* margin: 1rem 0rem; */
+    /* padding: 1rem 0; */
+    /* width: 100%; */
+    max-width: calc(100% - 1.6rem);
+}
+
+form header {
+    margin: 1.5rem 0rem;
+    padding: 1.5rem 0;
+}
+
+form button {
+    display: inline;
+    margin: 0rem 1rem 0rem 0rem;
+    padding: 1rem 0;
+    width: 10rem;
+    /* height: 6rem; */
+}
+
+form .form-group .autocomplete input[type="text"] {
+    width: 50%;
+    display: inline;
+}
+
+form .form-group .autocomplete button {
+    /* width: 30%; */
+    display: inline;
+}
+
+form .form-group .autocomplete button:hover {
+    cursor: pointer;
+
+}
+
+form .form-group .autocomplete button:active {
+    filter: brightness(var(--active-brightness));
+}
+
+
+
+form .form-group textarea {
+    /* background-color: var(--color-bg-secondary); */
+    background-color: #fff;
+    /* font: 1em sans-serif; */
+    font-family: var(--font-family);
+    /* border: 2px solid var(--color-link); */
+    border: 1px solid var(--color-bg-secondary);
+    color: var(--color-bg);
+    color: #000;
+    /* width: 100%; */
+    max-width: calc(100% - 1.6rem);
+    min-width: calc(100% - 1.6rem);
+}
+
+form .form-group input:checked {
+    border-color: var(--color-link);
+    /* border-color: var(--color-bg-secondary); */
+}
+
+.autocomplete {
+    position: relative;
+    /* display: inline-block; */
+}
+
+
+.autocomplete input[type="text"] {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+}
+
+.autocomplete button {
+    position: relative;
+    display: inline-block;
+}
+
+
+.autocomplete-items {
+    position: absolute;
+    border: 1px solid var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow) var(--color-shadow);
+    background-color: var(--color-bg);
+    z-index: 999;
+    top: 80%;
+    left: 0%;
+    right: 0;
+    width: 70%;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+    border-bottom: 1px solid #d4d4d4;
+}
+
+/*when hovering an item:*/
+.autocomplete-items div:hover {
+    /* background-color: #e9e9e9; */
+    background-color: var(--color-link) !important;
+    color: #ffffff;
+}
+
+.autocomplete-items p {
+    padding: 10px;
+    background-color: #fff;
+    cursor: default;
+    width: 70%;
+}
+
+.autocomplete-items p:hover {
+    cursor: default;
+    /* background-color: #e9e9e9; */
+    /* background-color: var(--color-bg-secondary); */
+    /* color: #ffffff; */
+}
+
+/*when navigating through the items using the arrow keys:*/
+.autocomplete-active {
+    background-color: var(--color-link) !important;
+    color: #ffffff;
+}
+
+input,
+label,
+select,
+textarea {
+    display: block;
+    font-size: inherit;
+    max-width: var(--width-card-wide);
+}
+
+input,
+select,
+textarea {
+    border: 1px solid var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+    padding: 0.4rem 0.8rem;
+    display: inline-block;
+}
+
+
+input[type="text"],
+textarea {
+    width: calc(100% - 1.6rem);
+}
+
+input[type="text"] .textwithbutton {
+    width: calc(100% - 51.6rem);
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline-block;
+}
+
+input[type="checkbox"]+label,
+input[type="radio"]+label {
+    display: inline-block;
+    font-weight: normal;
+    position: relative;
+    top: 1px;
+}
+
+input[type="range"] {
+    padding: 0.4rem 0;
+}
+
+input[readonly],
+textarea[readonly] {
+    background-color: var(--color-bg-secondary);
+}
+
+label {
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+}
+
+/* Popups */
+dialog {
+    border: 1px solid var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow) var(--color-shadow);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50%;
+    z-index: 999;
+}
+
+/* Tables */
+table {
+    border: 1px solid var(--color-bg-secondary);
+    border-radius: var(--border-radius);
+    border-spacing: 0px 0px;
+    display: inline-block;
+    max-width: 100%;
+    overflow-x: auto;
+    padding: 0;
+    white-space: nowrap;
+}
+
+table td,
+table th,
+table tr {
+    padding: 0.4rem 0.8rem;
+    text-align: var(--justify-important);
+}
+
+table thead {
+    background-color: var(--color-table);
+    border-collapse: collapse;
+    border-radius: var(--border-radius);
+    color: var(--color-bg);
+    margin: 0;
+    padding: 0;
+}
+
+table thead th:first-child {
+    border-top-left-radius: var(--border-radius);
+}
+
+table thead th:last-child {
+    border-top-right-radius: var(--border-radius);
+}
+
+table thead th:first-child,
+table tr td:first-child {
+    text-align: var(--justify-normal);
+}
+
+table tr:nth-child(even) {
+    background-color: var(--color-accent);
+}
+
+/* Quotes */
+blockquote {
+    display: block;
+    font-size: x-large;
+    line-height: var(--line-height);
+    margin: 1rem auto;
+    max-width: var(--width-card-medium);
+    padding: 1.5rem 1rem;
+    text-align: var(--justify-important);
+}
+
+blockquote footer {
+    color: var(--color-text-secondary);
+    display: block;
+    font-size: small;
+    line-height: var(--line-height);
+    padding: 1.5rem 0;
+}
+
+/* Scrollbars */
+* {
+    scrollbar-width: thin;
+    /* scrollbar-color: rgb(202, 202, 232) auto; */
+    scrollbar-color: var(--color-bg-secondary) auto;
+}
+
+*::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+*::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+    background-color: rgb(202, 202, 232);
+    border-radius: 10px;
+}
+
+
+
+/* The popup form - hidden by default */
+.form-popup {
+    display: none;
+    /* position: fixed; */
+    float: center;
+    border: 5px solid var(--color-accent);
+    box-shadow: var(--color-shadow);
+    z-index: 1;
+    background-color: white;
+    border-radius: 10px;
+    /* border-color: var(--color-accent); */
+}
+
+.form-popup label,
+.form-popup h2,
+.form-popup h3,
+.form-popup input[type="text"] {
+    margin: 0% 2%;
+    padding: 10px;
+    max-width: 80%;
+    background-color: white;
+    border-style: round;
+}
+
+.form-popup button {
+    display: inline-block;
+    margin: 2% 2%;
+}
+
+
+
+
+
+/* Add styles to the form container */
+form .form-group .form-popup form.form-container {
+    max-width: 50%;
+    padding: 10px;
+    background-color: white;
+    border-style: round;
+}
+
+/* Full-width input fields */
+form .form-container input[type=text] {
+    width: 100%;
+    padding: 15px;
+    margin: 5px 0 22px 0;
+    border: none;
+    background: #f1f1f1;
+}
+
+/* When the inputs get focus, do something */
+form .form-container input[type=text]:focus {
+    background-color: #ddd;
+    outline: none;
+}
+
+/* Set a style for the submit/login button */
+form .form-container .btn {
+    background-color: #04AA6D;
+    color: white;
+    padding: 16px 20px;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    margin-bottom: 10px;
+    /* opacity: 0.8; */
+}
+
+/* Add a red background color to the cancel button */
+form .form-container .cancel {
+    background-color: red;
+}
+
+/* Add some hover effects to buttons */
+form .form-container .btn:hover,
+.open-button:hover {
+    opacity: 1;
+}
+
+
+/* .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    opacity: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+} */
+
+/* The Modal (background) */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-top: 60px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%;
+    /* Could be more or less, depending on screen size */
+}
