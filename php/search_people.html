@@ -75,9 +75,9 @@ document.getElementById('showAllPeople').addEventListener('click', function() {
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            <!-- <h2>Query Results:</h2> -->
+            <h2>Query Results:</h2>
             <?php if (empty($people)) : ?>
-                <!-- <p>Please enter people's name or licences</p> -->
+                <p>Please enter people's name or licences</p>
             <?php else : ?>
                 <p>Found <?php echo count($people); ?> results.</p>
                 <table class="table table-striped" id="searchPeople">

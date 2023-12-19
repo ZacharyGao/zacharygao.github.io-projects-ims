@@ -56,6 +56,10 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
+    if (document.getElementById("include_html")) {
+        includeHTML();
+    }
+
 
     var currentPage = window.location.pathname.split("/").pop();
     var navItems = document.querySelectorAll(".sidenav ul li[data-page]");
@@ -584,12 +588,7 @@ if (document.getElementById("query_people")) {
         }
     });
 }
-// document.getElementById("query_people").addEventListener("keydown", function(event) {
-//     if (event.key === "Enter") {
-//         event.preventDefault();
-//         document.querySelector("#query_people button[type='submit']").click();
-//     }
-// });
+
 
 
 function includeHTML() {
@@ -599,23 +598,25 @@ function includeHTML() {
     for (i = 0; i < z.length; i++) {
         elmnt = z[i];
         // search for elements with a certain attribute
-        file = elmnt.getAttribute("w3-include-html");
+        file = elmnt.getAttribute("include-html");
         if (file) {
+
             // make an HTTP request using the attribute value as the file name:
             xhttp = new XMLHttpRequest();
             xhttp.onreadystatechange = function () {
                 if (this.readyState == 4) {
                     if (this.status == 200) { elmnt.innerHTML = this.responseText; }
                     if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
+
                     // remove the attribute, and call this function once more
-                    elmnt.removeAttribute("w3-include-html");
+                    elmnt.removeAttribute("include-html");
                     includeHTML();
                 }
             }
             xhttp.open("GET", file, true);
             xhttp.send();
-            // exit the function
+
             return;
         }
     }
-};
+}

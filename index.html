@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 
 <head>
@@ -14,13 +14,13 @@
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/x-icon" href="/img/car.ico">
 
-</head>
+</head> -->
 
-<body>
+<!-- <body> -->
 
 
-    <!-- sidenav bar -->
-    <div class="sidenav">
+<!-- sidenav bar -->
+<!-- <div class="sidenav">
         <div class="closebtn" onclick="closeNav()">
             <a href="javascript:void(0)">×</a>
         </div>
@@ -31,9 +31,9 @@
 
         <ul id="myMenu">
             <li data-page="index"><a href="index.php">Home</a></li>
-            <li data-page="dashboard"><a href="dashboard.php">Dashboard</a></li>
-            <li><a href="search_people.html"><i class="fa fa-fw fa-user"></i> People</a></li>
-
+            <li data-page="dashboard"><a href="dashboard.php">Dashboard</a></li> -->
+<!-- <li><a href="search_people.html"><i class="fa fa-fw fa-user"></i> People</a></li> -->
+<!-- 
             <li data-page="search_people"><a href="/php/search_people.html">People</a></li>
 
             <li data-page="search_vehicle"><a href="search_vehicle.php">Vehicle</a></li>
@@ -47,7 +47,6 @@
             <li data-page="audit_log"><a href="audit_log.php">Audit</a></li>
 
 
-            <!-- <a href="logout.php" class="split">Logout</a> -->
             <a href="login.php" class="split">Login</a>
         </ul>
     </div>
@@ -61,136 +60,61 @@
             Incidents Management system (IMS)
         </h1>
 
-        <p>Please login first. <a href='login.php'>Login</a></p>
-        <hr>
-
-
-        <div w3-include-html="incontent.html"></div> 
-
-        <script>
-            includeHTML();
-        </script>
-
-        <h2>Coursework 2 - Incidents Management system</h2>
-
-        <p>
-            The IMS is a web-based system that allows police officers to manage incidents, vehicles, and people. The
-            system is to be used by police officers to record incidents, and to add and search for people and vehicles.
-            The system is also to be used by police administrators to add new police officers and to associate fines to
-            incidents. The system also provides an audit trail of database accesses and changes.
-        </p>
-        <br>
-
-        <button>test button</button>
-
-        <div class="container">
-            <table class="table table-striped">
-                <tr>
-                    <th>username</th>
-                    <th>password</th>
-                </tr>
-                <tr>
-                    <td>mcnulty</td>
-                    <td>plod123</td>
-                </tr>
-                <tr>
-                    <td>moreland</td>
-                    <td>fuzz42</td>
-                </tr>
-            </table>
-        </div>
-        <br>
-
-        <form>
-            <input placeholder=input...>
-        </form>
-
-        <br>
-
-        <table>
-            <tr>
-                <th>a</th>
-                <th>b</th>
-                <th>c</th>
-            </tr>
-            <tr>
-                <td>ss</td>
-            </tr>
-        </table>
-
-        <br>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>People_ID</th>
-                    <th>People_name</th>
-                    <th>People_address</th>
-                    <th>People_license</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>id test</td>
-                    <td>
-                        $person["People_name"]
-                    </td>
-                    <td>
-                        $person["People_address"]
-                    </td>
-                    <td>
-                        $person["People_licence"]
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-
-        <br>
-
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>People_ID</th>
-                    <th>People_name</th>
-                    <th>People_address</th>
-                    <th>People_license</th>
-                </tr>
-            </thead>
-            <tbody>
-                foreach ($people as $person):
-                <tr>
-                    <td>
-                        $person["People_ID"]
-                    </td>
-                    <td>
-                        $person["People_name"]
-                    </td>
-                    <td>
-                        $person["People_address"]
-                    </td>
-                    <td>
-                        $person["People_licence"]
-                    </td>
-                </tr>
-                endforeach
-            </tbody>
-        </table>
+        <p>Please login first. <a href='login.php'>Login</a></p> -->
 
 
 
-    </main>
 
-    <footer>
+<main>
+
+    <!-- <h1>Coursework 2</h1> -->
+    <h1>
+        Incidents Management system (IMS)
+    </h1>
+
+    <!-- <?php if (isset($_SESSION['username'])) { ?>
+        <p>Username: <strong>
+                <?php echo "" . $_SESSION['username'] . "" ?>
+            </strong>. You can now operate. <a href='logout.php'>Logout</a></p>
+        <?php } else { ?> -->
+    <p>Please login first. <a href='login.html'>Login</a></p>
+    <!-- <?php } ?> -->
+
+    <!-- <?php require_once "inc/config.php"; ?> -->
+    <hr>
+    <div id="include_html" include-html="inc/incontent.html"></div>
+
+    <div id="include_html" include-html="inc/header.html"></div>
+    <hr>
+
+
+    <h2>Coursework 2 - Incidents Management system</h2>
+
+    <p>
+        The IMS is a web-based system that allows police officers to manage incidents, vehicles, and people. The
+        system is to be used by police officers to record incidents, and to add and search for people and vehicles.
+        The system is also to be used by police administrators to add new police officers and to associate fines to
+        incidents. The system also provides an audit trail of database accesses and changes.
+    </p>
+    <br>
+</main>
+
+<div id="include_html" include-html="inc/footer.html"></div>
+
+<script src="js/script.js"></script>
+
+<!-- </main> -->
+
+<!-- <footer>
         <hr>
         <p><a href="index.html">back to home</a></p>
         <p>
             © 2023 - 4039 DIS Database Interface and Software Design Principle
-            <!-- - <a href="#">Disclaimer</a> -->
+            - <a href="#">Disclaimer</a>
         </p>
-    </footer>
+    </footer> -->
 
-    <script src="js/script.js"></script>
 
-</body>
+<!-- </body> -->
 
-</html>
+<!-- </html> -->
