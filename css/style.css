@@ -76,6 +76,9 @@ main {
     margin-left: 20%;
     padding: 3rem 0rem;
     transition: margin-left .5s;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 1.6;
 
 }
 

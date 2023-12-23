@@ -620,3 +620,31 @@ function includeHTML() {
         }
     }
 }
+
+// document.addEventListener("DOMContentLoaded", function() {
+//     var tocList = document.getElementById("tocList");
+//     var headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
+
+//     headings.forEach(function(heading) {
+//         var tocItem = document.createElement("li");
+//         var tocLink = document.createElement("a");
+
+//         tocLink.href = "#" + heading.id;
+//         tocLink.textContent = heading.textContent;
+
+//         tocItem.appendChild(tocLink);
+//         tocList.appendChild(tocItem);
+//     });
+// });
+
+fetch('inc/header.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('header-placeholder').innerHTML = data;
+    });
+
+fetch('inc/footer.html')
+    .then(response => response.text())
+    .then(data => {
+        document.getElementById('footer-placeholder').innerHTML = data;
+    });
