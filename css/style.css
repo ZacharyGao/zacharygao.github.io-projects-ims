@@ -15,7 +15,9 @@
     --color-table: #10263B;
     --color-text: #10263B;
     --color-text-secondary: #999;
-    --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+    /* --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif; */
+    /* --font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif; */
+
     --hover-brightness: 1.2;
     --justify-important: center;
     --justify-normal: left;
@@ -76,9 +78,6 @@ main {
     margin-left: 20%;
     padding: 3rem 0rem;
     transition: margin-left .5s;
-    font-weight: 400;
-    font-size: 17px;
-    line-height: 1.6;
 
 }
 
@@ -474,14 +473,14 @@ nav ul li ul li a {
 }
 
 .sidenav .search {
-    margin: 0.4rem 0.4rem;
+    /* margin: 0.4rem 0.4rem; */
     /* padding: 0.3rem 0rem; */
-    /* border: none; */
+    border: none;
 }
 
 .sidenav .search input {
     width: calc(100% - 1.8rem);
-    display: block;
+    /* display: block; */
     /* margin: 0.5rem 0.5rem; */
     /* padding: 0.3rem 0.3rem; */
     /* font-size: 16px; */

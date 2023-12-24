@@ -1,3 +1,1 @@
-# zacharygao.github.io
-
-website
+# readme of home directory

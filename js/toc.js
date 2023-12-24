@@ -1,155 +1,170 @@
 var defaultOptions = {
-    headings: 'h1, h2, h3, h4',  // 根据需要包括 h3, h4 等
-    scope: 'main',  // 修改为您想要包含目录的元素的选择器
-    // scope: '.main',  // 修改为您想要包含目录的元素的选择器
-    title: 'Table of Contents',
+    headings: 'h1, h2',
+    scope: '.markdown-section',
+
+    // To make work
+    title: 'Contents',
     listType: 'ul',
 }
 
-// 构建目录
-var buildTOC = function (options) {
-    var headers = document.querySelectorAll(options.scope + ' ' + options.headings);
+// Element builders
+var tocHeading = function (Title) {
+    return document.createElement('h2').appendChild(
+        document.createTextNode(Title)
+    )
+}
 
-    var toc = document.createElement(options.listType);
-    toc.className = 'nav';  // 使用您的 CSS 类名
+var aTag = function (src) {
+    var a = document.createElement('a');
+    var content = src.firstChild.innerHTML;
 
-    var lastLevel = 0;
-    var currentList = toc;
+    // Use this to clip text w/ HTML in it.
+    // https://github.com/arendjr/text-clipper
+    a.innerHTML = content;
+    a.href = src.firstChild.href;
+    a.onclick = tocClick
 
-    // 遍历所有标题
-    headers.forEach(function (header) {
-        var level = parseInt(header.tagName.substring(1));
+    // In order to remove this gotta fix the styles.
+    a.setAttribute('class', 'anchor');
 
-        var li = document.createElement('li');
-        var a = document.createElement('a');
-        a.href = '#' + header.id;
-        a.textContent = header.textContent;
-        li.appendChild(a);
-        toc.appendChild(li);
-
-
-        while (level > lastLevel) {
-            var newList = document.createElement('ul');
-            var newListItem = document.createElement('li');
-            newListItem.appendChild(newList);
-            currentList.appendChild(newListItem);
-            currentList = newList;
-            lastLevel++;
-        }
-
-        while (level < lastLevel) {
-            currentList = currentList.parentNode.parentNode; // 向上移动到更高层级的列表
-            lastLevel--;
-        }
-
-        currentList.appendChild(li);
-
-    });
-
-    return toc;
+    return a
 };
 
+var tocClick = function (e) {
+    var divs = document.querySelectorAll('.page_toc .active');
 
-// function updateActiveLink() {
-//     var sections = document.querySelectorAll("main h1, main h2, main h3, main h4");
-//     var tocLinks = document.querySelectorAll(".page_toc a");
-
-//     // console.log(sections);
-
-//     var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
-
-//     sections.forEach(function (section) {
-//         if (section.offsetTop <= scrollPosition && section.offsetTop + section.offsetHeight > scrollPosition) {
-//             tocLinks.forEach(function (link) {
-//                 link.parentElement.classList.remove('active');
-//                 if (section.getAttribute('id') === decodeURIComponent(link.hash).substring(1)) {
-//                     link.parentElement.classList.add('active');
-//                     // console.log(link.parentElement);
-//                 }
-//             });
-//         }
-//     });
-// }
-
-
-var updateActiveLink = function() {
-    var sections = document.querySelectorAll(defaultOptions.scope + ' ' + defaultOptions.headings);
-    var tocLinks = document.querySelectorAll('.page_toc a');
-
-    var scrollPosition = document.documentElement.scrollTop || document.body.scrollTop;
-
-    sections.forEach(function(section) {
-        var sectionTop = section.offsetTop;
-        var sectionBottom = sectionTop + section.offsetHeight;
-        if (scrollPosition >= sectionTop && scrollPosition < sectionBottom) {
-            tocLinks.forEach(function(link) {
-                link.parentElement.classList.remove('active');
-                if (section.getAttribute('id') === link.getAttribute('href').substring(1)) {
-                    link.parentElement.classList.add('active');
-                }
-            });
-        }
+    // Remove the previous classes
+    [].forEach.call(divs, function (div) {
+        div.setAttribute('class', 'anchor')
     });
+
+    // Make sure this is attached to the parent not itself
+    e.target.parentNode.setAttribute('class', 'active')
 };
 
+var createList = function (wrapper, count) {
+    while (count--) {
+        wrapper = wrapper.appendChild(
+            document.createElement('ul')
+        );
 
-// 当文档加载完成后执行
-document.addEventListener("DOMContentLoaded", function () {
-    var toc = buildTOC(defaultOptions);
-    var container = document.createElement('div');  // 使用 nav 代替 div
-    container.className = 'page_toc';  // 使用您的 CSS 类名
-
-    var title = document.createElement('h3');
-    title.textContent = defaultOptions.title;
-    container.appendChild(title);
-    container.appendChild(toc);
-
-    var contentArea = document.querySelector(defaultOptions.scope);
-    if (contentArea) {
-        contentArea.insertBefore(container, contentArea.firstChild);
+        if (count) {
+            wrapper = wrapper.appendChild(
+                document.createElement('li')
+            );
+        }
     }
 
-    // // 添加滚动效果
-    // var links = document.querySelectorAll('.page_toc a');
-    // links.forEach(function(link) {
-    //     link.addEventListener('click', function(e) {
-    //         e.preventDefault();
-    //         var target = document.querySelector(this.getAttribute('href'));
-    //         target.scrollIntoView({behavior: 'smooth'});
-    //     });
-    // });
+    return wrapper;
+};
 
-    // // 添加滚动事件
-    // var toc = document.querySelector('.page_toc');
-    // var tocTop = toc.offsetTop;
-    // var tocBottom = tocTop + toc.offsetHeight;
-    // window.addEventListener('scroll', function(e) {
-    //     var scrollPos = window.scrollY;
-    //     if (scrollPos >= tocTop && scrollPos < tocBottom) {
-    //         toc.classList.add('fixed');
-    //     } else {
-    //         toc.classList.remove('fixed');
-    //     }
-    // });
+//------------------------------------------------------------------------
 
-    // // 添加点击事件
-    // var tocToggle = document.querySelector('.page_toc h3');
-    // tocToggle.addEventListener('click', function(e) {
-    //     e.preventDefault();
-    //     toc.classList.toggle('open');
-    // });
+var getHeaders = function (selector) {
+    var headings2 = document.querySelectorAll(selector);
+    var ret = [];
 
-
-    // 添加关闭事件
-    // var tocClose = document.querySelector('.page_toc .close');
-    // tocClose.addEventListener('click', function(e) {
-    //     e.preventDefault();
-    //     toc.classList.remove('open');
-    // });
-
-    // active link
-    window.addEventListener('scroll', function () {
-        updateActiveLink();
+    [].forEach.call(headings2, function (heading) {
+        ret = ret.concat(heading);
     });
 
-});
+    return ret;
+};
+
+var getLevel = function (header) {
+    var decs = header.match(/\d/g);
+
+    return decs ? Math.min.apply(null, decs) : 1;
+};
+
+var jumpBack = function (currentWrapper, offset) {
+    while (offset--) {
+        currentWrapper = currentWrapper.parentElement;
+    }
+
+    return currentWrapper;
+};
+
+var buildTOC = function (options) {
+    var ret = document.createElement('ul');
+    var wrapper = ret;
+    var lastLi = null;
+    var selector = options.scope + ' ' + options.headings
+    var headers = getHeaders(selector)
+
+    headers.reduce(function (prev, curr, index) {
+        var currentLevel = getLevel(curr.tagName);
+        var offset = currentLevel - prev;
+
+        wrapper = (offset > 0)
+            ? createList(lastLi, offset)
+            : jumpBack(wrapper, -offset * 2)
+
+        wrapper = wrapper || ret;
+
+        var li = document.createElement('li');
+
+        wrapper.appendChild(li).appendChild(aTag(curr));
+
+        lastLi = li;
+
+        return currentLevel;
+    }, getLevel(options.headings));
+
+    return ret;
+};
+
+// Docsify plugin functions
+function plugin(hook, vm) {
+    var userOptions = vm.config.toc;
+
+    hook.mounted(function () {
+        var content = window.Docsify.dom.find(".content");
+        if (content) {
+            var nav = window.Docsify.dom.create("aside", "");
+            window.Docsify.dom.toggleClass(nav, "add", "nav");
+            window.Docsify.dom.before(content, nav);
+        }
+    });
+
+    hook.doneEach(function () {
+        var nav = document.querySelectorAll('.nav')[0]
+        var t = Array.from(document.querySelectorAll('.nav'))
+
+        if (!nav) {
+            return;
+        }
+
+        const toc = buildTOC(userOptions);
+
+        // Just unset it for now.
+        if (!toc.innerHTML) {
+            nav.innerHTML = null
+            return;
+        }
+
+        // Fix me in the future
+        var title = document.createElement('p');
+        title.innerHTML = userOptions.title;
+        title.setAttribute('class', 'title');
+
+        var container = document.createElement('div');
+        container.setAttribute('class', 'page_toc');
+
+        container.appendChild(title);
+        container.appendChild(toc);
+
+        // Existing TOC
+        var tocChild = document.querySelectorAll('.nav .page_toc');
+
+        if (tocChild.length > 0) {
+            tocChild[0].parentNode.removeChild(tocChild[0]);
+        }
+
+        nav.appendChild(container);
+    });
+}
+
+// Docsify plugin options
+window.$docsify['toc'] = Object.assign(defaultOptions, window.$docsify['toc']);
+window.$docsify.plugins = [].concat(plugin, window.$docsify.plugins);

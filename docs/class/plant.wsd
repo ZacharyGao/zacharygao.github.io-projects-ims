@@ -1,0 +1,3 @@
+@startuml name
+A -> C : hh
+@enduml

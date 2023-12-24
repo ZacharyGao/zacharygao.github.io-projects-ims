@@ -1,650 +1,230 @@
-document.addEventListener("DOMContentLoaded", function () {
+window.$docsify = {
+    name: 'CS with AI',
+    // repo: 'zacharyGao',
+    rootPath: 'content/',
+    
+    el: '#app', // 欢迎页
+    // coverpage: true, // 封面
+    coverpage: {
+        // '/': '/inc/cover.md',
+        // '/zh-cn/': 'cover.md'
+    },
+    loadSidebar: true, // 侧边栏
+    // loadNavbar: true, // 导航栏
+    topMargin: 40, // 让你的内容页在滚动到指定的锚点时，距离页面顶部有一定空间
+    mergeNavbar: true,  // 小屏设备下合并导航栏到侧边栏
+    auto2top: true, // 自动回到顶部
+    maxLevel: 3, // 最大标题层级
+    subMaxLevel: 2, // 每个标题下面的最大标题层级
+    // search: 'auto', // 搜索
+    search: {
+        maxAge: 86400000, // 过期时间，单位毫秒，默认一天
+        paths: 'auto', // or 'auto'
+        placeholder: 'search',
+        noData: 'No Results!',
+        depth: 3 // 搜索标题的最大层级, 1 - 6
+    },
+    pagination: {
+        previousText: 'Prev', // 上一页按钮文字
+        nextText: 'Next', // 下一页按钮文字
+        crossChapter: true, // 在章节之间显示分页
+        crossChapterText: true // 文章之间显示分页
+    },
+    plugins: [
+        // function (hook, vm) {
+        //     hook.beforeEach(function (html) {
+        //         var url = vm.route.file
+        //         var editHtml = '[📝 EDIT DOCUMENT](' + url + ')\n'
+        //         // console.log(url)
+        //         // console.log(editHtml)
+        //         // var html = html.replace(/<h1.*?>(.*?)<\/h1>/, function (match, submatch) {
+        //         //     return '<h1>' + submatch + '</h1>' + editHtml
+        //         // })
+        //         // var html = "https://github.com/zacharyGao/zacharyGao.github.io/blob/master/docs/README.md"
+        //         // console.log(html)
+        //         // return editHtml + html
+        //         return html
+        //     })
+        // },
+        function (hook, vm) {
+            hook.beforeEach(function (html) {
+                // var url = vm.route.file
+                // const headingRegex = /^#\s+(.+)$/gm;
+                const regex = /^#\s.*/gm; // 匹配每行的一级标题
+                return html.replace(regex, match => match + "<!--{docsify-ignore-all} -->");
 
-    if (document.getElementById('newPersonForm')) {
-        document.getElementById('newPersonForm').addEventListener('submit', function (event) {
-            event.preventDefault();
-
-            var licenceNum = document.getElementById('licenceNum').value;
-
-            // update the external 'owner' input field
-            document.getElementById('ownerAutocomplete').value = licenceNum;
-
-            addNewPersonToDatabase();
-
-            closeNewOwnerForm();
-        });
-        window.onclick = function (event) {
-            if (event.target == document.getElementById('newPerson')) {
-                closeNewOwnerForm();
-            }
+                // // var newhtml = html.replace(/# .*? /, "# match")
+                // var newhtml = html.replace(headingRegex, '# $1 <!--{docsify-ignore-all}-->\n');
+                // console.log(newhtml)                
+                // // return newhtml
+                // return html
+            })
         }
-    }
+    ],
+    // executeScript: true, // 执行 script 标签中的脚本
+    formatUpdated: '{YYYY}-{MM}-{DD} {HH}:{mm}', // 格式化更新时间
+    formatUpdated: '{MM}/{DD} {HH}:{mm}', // 格式化更新时间
 
+    toc: {
+        scope: '.markdown-section',
+        headings: 'h1, h2, h3, h4, h5, h6',
+        title: 'Table of Contents',
+    },
 
-    if (document.querySelector("form[name='query_people']")) {
-        ajaxFormSubmit("form[name='query_people']", "people_table.php");
-    }
-    if (document.querySelector("form[name='query_vehicles']")) {
-        ajaxFormSubmit("form[name='query_vehicles']", "vehicles_table.php");
-    }
+    alias: {
+        '/.*/_sidebar.md': '/_sidebar.md'
+    },
+    // relativePath: true, // 启用相对路径
+    // basePath: '/docs/', // 基础路径
 
-
-    if (document.getElementById("ownerAutocomplete")) {
-        autocomplete(document.getElementById("ownerAutocomplete"));
-    }
-
-    if (document.getElementById("mySearch")) {
-        document.getElementById("mySearch").addEventListener("keyup", function () {
-            searchMenu();
-        });
-    }
-
-    // check if side navigation bar is open or closed
-    checkNavState();
-
-    // open new owner form
-    if (document.getElementById("newOwnerButton")) {
-        document.getElementById("newOwnerButton").addEventListener("click", function () {
-            openNewOwnerForm();
-        });
-    }
-
-    // close new owner form
-    if (document.getElementById("closeNewOwnerButton")) {
-        document.getElementById("closeNewOwnerButton").addEventListener("click", function () {
-            closeNewOwnerForm();
-        });
-    }
-
-    if (document.getElementById("include_html")) {
-        includeHTML();
-    }
-
-
-    var currentPage = window.location.pathname.split("/").pop();
-    var navItems = document.querySelectorAll(".sidenav ul li[data-page]");
-
-    navItems.forEach(function (item) {
-        if (item.getAttribute('data-page') === currentPage.replace('.html', '')) {
-            item.classList.add('active');
-        }
-        else {
-            item.classList.remove('active');
-        }
-    });
-
-});
-
-function ajaxFormSubmit(formSelector, targetUrl) {
-    document.querySelector(formSelector).addEventListener("submit", function (event) {
-        event.preventDefault();    // stop the form from submitting
-
-        var formData = new FormData(this);
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", targetUrl, true);
-
-        xhr.onload = function () {
-            if (this.status == 200) {
-                document.querySelector(".container").innerHTML = this.responseText;
-
-                // add event listener to the search input field
-                var inputElement = document.getElementById("ownerAutocomplete");
-                var tableID = "searchPeople";
-                var columnNames = ["People_name", "People_license"];
-                if (inputElement && document.getElementById(tableID)) {
-                    inputElement.onkeyup = function () {
-                        filterTableByName("info", tableID, columnNames);
-                    };
-                }
-            }
-        };
-
-        xhr.send(formData);
-    });
+    // 404 页面
+    notFoundPage: true, // 404 页面
+    notFoundPage: {
+        '/': '/inc/404.md'
+    },
+    // 403 页面
+    // forbiddenPage: true, // 403 页面
+    // forbiddenPage: {
+    //     '/': 'custom-403.md'
+    // },
+    // 500 页面
+    // internalServerErrorPage: true, // 500 页面
+    // internalServerErrorPage: {
+    //     '/': 'custom-500.md'
+    // },
+    // 401 页面
+    // unauthorizedPage: true, // 401 页面
+    // unauthorizedPage: {
+    //     '/': 'custom-401.md'
+    // },
+    // 503 页面
+    // serviceUnavailablePage: true, // 503 页面
+    // serviceUnavailablePage: {
+    //     '/': 'custom-503.md'
+    // },
+    // 400 页面
+    // badRequestPage: true, // 400 页面
+    // badRequestPage: {
+    //     '/': 'custom-400.md'
+    // },
+    // 402 页面
+    // paymentRequiredPage: true, // 402 页面
+    // paymentRequiredPage: {
+    //     '/': 'custom-402.md'
+    // },
+    // 405 页面
+    // methodNotAllowedPage: true, // 405 页面
+    // methodNotAllowedPage: {
+    //     '/': 'custom-405.md'
+    // },
+    // 406 页面
+    // notAcceptablePage: true, // 406 页面
+    // notAcceptablePage: {
+    //     '/': 'custom-406.md'
+    // },
+    // 407 页面
+    // proxyAuthenticationRequiredPage: true, // 407 页面
+    // proxyAuthenticationRequiredPage: {
+    //     '/': 'custom-407.md'
+    // },
+    // 408 页面
+    // requestTimeoutPage: true, // 408 页面
+    // requestTimeoutPage: {
+    //     '/': 'custom-408.md'
+    // },
+    // 409 页面
+    // conflictPage: true, // 409 页面
+    // conflictPage: {
+    //     '/': 'custom-409.md'
+    // },
+    // 410 页面
+    // gonePage: true, // 410 页面
+    // gonePage: {
+    //     '/': 'custom-410.md'
+    // },
+    // 411 页面
+    // lengthRequiredPage: true, // 411 页面
+    // lengthRequiredPage: {
+    //     '/': 'custom-411.md'
+    // },
+    // 412 页面
+    // preconditionFailedPage: true, // 412 页面
+    // preconditionFailedPage: {
+    //     '/': 'custom-412.md'
+    // },
+    // 413 页面
+    // payloadTooLargePage: true, // 413 页面
+    // payloadTooLargePage: {
+    //     '/': 'custom-413.md'
+    // },
+    // 414 页面
+    // uriTooLongPage: true, // 414 页面
+    // uriTooLongPage: {
+    //     '/': 'custom-414.md'
+    // },
+    // 415 页面
+    // unsupportedMediaTypePage: true, // 415 页面
+    // unsupportedMediaTypePage: {
+    //     '/': 'custom-415.md'
+    // },
+    // 416 页面
+    // rangeNotSatisfiablePage: true, // 416 页面
+    // rangeNotSatisfiablePage: {
+    //     '/': 'custom-416.md'
+    // },
+    // 417 页面
+    // expectationFailedPage: true, // 417 页面
+    // expectationFailedPage: {
+    //     '/': 'custom-417.md'
+    // },
+    // 418 页面
+    // imATeapotPage: true, // 418 页面
+    // imATeapotPage: {
+    //     '/': 'custom-418.md'
+    // },
+    // 421 页面
+    // misdirectedRequestPage: true, // 421 页面
+    // misdirectedRequestPage: {
+    //     '/': 'custom-421.md'
+    // },
+    // 422 页面
+    // unprocessableEntityPage: true, // 422 页面
+    // unprocessableEntityPage: {
+    //     '/': 'custom-422.md'
+    // },
+    // 423 页面
+    // lockedPage: true, // 423 页面
+    // lockedPage: {
+    //     '/': 'custom-423.md'
+    // },
+    // 424 页面
+    // failedDependencyPage: true, // 424 页面
+    // failedDependencyPage: {
+    //     '/': 'custom-424.md'
+    // },
+    // 426 页面
+    // upgradeRequiredPage: true, // 426 页面
+    // upgradeRequiredPage: {
+    //     '/': 'custom-426.md'
+    // },
+    // 428 页面
+    // preconditionRequiredPage: true, // 428 页面
+    // preconditionRequiredPage: {
+    //     '/': 'custom-428.md'
+    // },
+    // 429 页面
+    // tooManyRequestsPage: true, // 429 页面
+    // tooManyRequestsPage: {
+    //     '/': 'custom-429.md'
+    // },
+    // 431 页面
+    // requestHeaderFieldsTooLargePage: true, // 431 页面
+    // requestHeaderFieldsTooLargePage: {
+    //     '/': 'custom-431.md'
+    // },
+    // 451 页面
+    // unavailableForLegalReasonsPage: true, // 451 页面
+    // unavailableForLegalReasonsPage: {
+    //     '/': 'custom-451.md'
+    // },
 }
-
-
-function validateForm() {
-    var x = document.forms["myForm"]["fname"].value; // see https://www.w3schools.com/js/js_htmldom_document.asp
-    if (x == "") {
-        alert("Name must be filled out");
-        return false;
-    }
-}
-
-
-// hide or show side navigation bar
-function toggleNav() {
-    var sideNavs = document.getElementsByClassName("sidenav");
-    var mainContent = document.getElementsByTagName("main");
-
-    for (var i = 0; i < sideNavs.length; i++) {
-        if (sideNavs[i].style.width == "15%") {
-            sideNavs[i].style.width = "0";
-            sessionStorage.setItem("sideNavState", "closed");
-
-        } else {
-            sideNavs[i].style.width = "15%";
-            sessionStorage.setItem("sideNavState", "open");
-        }
-    }
-
-    for (var i = 0; i < mainContent.length; i++) {
-        if (mainContent[i].style.marginLeft == "20%") {
-            mainContent[i].style.marginLeft = "20%";
-        } else {
-            mainContent[i].style.marginLeft = "20%";
-        }
-    }
-}
-
-function closeNav() {
-    var sideNavs = document.getElementsByClassName("sidenav");
-    var mainContent = document.getElementsByTagName("main");
-
-    for (var i = 0; i < sideNavs.length; i++) {
-        sideNavs[i].style.width = "0";
-        sessionStorage.setItem("sideNavState", "closed");
-    }
-    for (var i = 0; i < mainContent.length; i++) {
-        mainContent[i].style.marginLeft = "20%";
-    }
-}
-
-function checkNavState() {
-    var sideNavState = sessionStorage.getItem("sideNavState");
-
-    var sideNavs = document.getElementsByClassName("sidenav");
-    var mainContent = document.getElementsByTagName("main");
-
-    if (sideNavState == "closed") {
-        for (var i = 0; i < sideNavs.length; i++) {
-            sideNavs[i].style.width = "0";
-        }
-        for (var i = 0; i < mainContent.length; i++) {
-            mainContent[i].style.marginLeft = "20%";
-        }
-    }
-    else {
-        for (var i = 0; i < sideNavs.length; i++) {
-            sideNavs[i].style.width = "15%";
-        }
-        for (var i = 0; i < mainContent.length; i++) {
-            mainContent[i].style.marginLeft = "20%";
-        }
-    }
-}
-
-
-
-// search menu for sidenav bar
-function searchMenu() {
-    var input, filter, ul, li, a, i, j, currentText, found;
-    input = document.getElementById("mySearch");
-    filter = input.value.toUpperCase();
-    ul = document.getElementById("myMenu");
-    li = ul.getElementsByTagName("li");
-
-    for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByTagName("a")[0];
-        a_cleaned = a.innerHTML.replace(/<i[^>]*><\/i>/g, ""); // remove icons
-        currentText = a_cleaned.toUpperCase();
-        found = true;
-
-        // check if all characters in filter are found in currentText
-        for (j = 0; j < filter.length; j++) {
-            if (filter[j] === " ") continue; // skip spaces
-
-            var charIndex = currentText.indexOf(filter[j]);
-            if (charIndex === -1) {
-                found = false;
-                break;
-            } else {
-                // only remove the first occurrence of the character
-                currentText = currentText.substring(0, charIndex) + currentText.substring(charIndex + 1);
-            }
-        }
-
-        // if all characters in filter are found in currentText, show the li item
-        if (found) {
-            li[i].style.display = "";
-        } else {
-            li[i].style.display = "none";
-        }
-    }
-}
-
-function searchText(filter, content) {
-    var allIndexes = [];
-    for (i = 0; i < content.length; i++) {
-        found = true;
-        var charIndexes = [];
-
-        // check if all characters in filter are found in currentText
-        for (j = 0; j < filter.length; j++) {
-            if (filter[j] === " ") continue; // skip spaces
-
-            var charIndex = content.indexOf(filter[j]);
-            if (charIndex === -1) {
-                found = false;
-                break;
-            } else {
-                // only remove the first occurrence of the character
-                // content = content.substring(0, charIndex) + content.substring(charIndex + 1);
-                charIndexes.push(charIndex);
-            }
-        }
-
-        // if all characters in filter are found in currentText
-        if (found) {
-            allIndexes.push(charIndexes);
-        } else {
-            allIndexes.push([]);
-        }
-    }
-    return allIndexes;
-}
-
-
-// autocomplete for owner in add-vehicle form
-function showMatches(inputText) {
-    if (inputText.length == 0) {
-        document.getElementById("ownerMatches").innerHTML = "";
-        return;
-    }
-    var xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            // console.log(this.responseText);
-            document.getElementById("ownerMatches").innerHTML = this.responseText;
-        }
-    };
-    xhr.open("GET", "inc/get_people.php?q=" + inputText, true);
-    xhr.send();
-}
-
-// close the autocomplete dropdown when user clicks outside of it
-// document.addEventListener("click", function (event) {
-//     document.getElementById("ownerMatches").innerHTML = "";
-// });
-
-function selectOwner(name) {
-    document.getElementById("owner").value = name;
-    document.getElementById("ownerMatches").innerHTML = "";
-}
-
-
-function openNewOwnerForm() {
-
-    if (document.getElementById("ownerAutocomplete").value != null) {
-        document.getElementById("licenceNum").value = document.getElementById("ownerAutocomplete").value;
-    }
-    else {
-        document.getElementById("licenceNum").value = "";
-    }
-
-
-    if (document.getElementById("newPerson").style.display = "none") {
-        document.getElementById("newPerson").style.display = "block";
-        document.getElementById("personName").focus();
-        document.getElementById("personName").select();
-
-        // console.log(document.getElementById("openNewOwnerForm"));
-        // newPersonForm.reset();
-    }
-    else if (document.getElementById("newPerson").style.display = "block") {
-        document.getElementById("newPerson").style.display = "none";
-    }
-
-}
-
-function closeNewOwnerForm() {
-    document.getElementById("newPerson").style.display = "none";
-
-    if (document.getElementById("licenceNum").value != "") {
-        document.getElementById("ownerAutocomplete").value = document.getElementById("licenceNum").value;
-    }
-
-}
-
-
-function boldMatchingCharacters(str, val) {
-    // with regex
-    var pattern = val.replace(/\s+/g, '').split('').join('|');
-    var re = new RegExp(pattern, "gi");
-
-    return str.replace(re, function (match) {
-        return "<strong>" + match + "</strong>";
-    });
-}
-
-
-function autocomplete(inpElement) {
-    // the autocomplete function takes one argument the text field element 
-    var currentFocus;
-
-    // execute a function when someone writes in the text field
-    inpElement.addEventListener("input", function (e) {
-        var a, b, i, val = this.value;
-        // close any already open lists of autocompleted values
-        closeAllLists();
-
-        if (!val) { return false; }
-        currentFocus = -1;
-
-        // create a DIV element that will contain the items (values)
-        a = document.createElement("DIV");
-        a.setAttribute("id", this.id + "autocomplete-list");
-        a.setAttribute("class", "autocomplete-items");
-        // append the DIV element as a child of the autocomplete container
-        this.parentNode.appendChild(a);
-
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (this.readyState == 4 && this.status == 200) {
-                var people;
-                var val = inpElement.value.toUpperCase().replace(/\s+/g, ""); // skip spaces
-
-                // found at least a match
-                if (!this.responseText.includes("<p>")) {
-                    people = JSON.parse(this.responseText);
-                } else {
-                    people = [];
-                }
-
-                if (people.length == 0) {
-                    b = document.createElement("P");
-                    b.innerHTML = "<p>No matches found.<br>Please add this person.</p><button onclick='openNewOwnerForm()'>Add New Person</button>";
-                    a.appendChild(b);
-                }
-
-                for (i = 0; i < people.length; i++) {
-                    var personInfo = (people[i].People_name + " " + people[i].People_licence).toUpperCase();
-
-                    var found = true;
-
-                    // check if all characters in filter are found in currentText
-                    for (var j = 0; j < val.length; j++) {
-                        var pos = personInfo.indexOf(val[j]);
-
-                        if (personInfo.indexOf(val[j]) === -1) {
-                            found = false;
-                            break;
-                        }
-                        else {
-                            // only remove the first occurrence of the character
-                            personInfo = personInfo.substring(0, pos) + personInfo.substring(pos + 1);
-                        }
-                    }
-
-                    if (found) {
-
-                        // create a DIV element for each matching element
-                        b = document.createElement("DIV");
-
-                        // make the matching letters bold
-                        var personInfoCopy = (people[i].People_name + " " + people[i].People_licence).toUpperCase();
-                        b.innerHTML = boldMatchingCharacters(personInfoCopy, val);
-
-                        // insert a input field that will hold the current array item's value
-                        b.innerHTML += "<input type='hidden' value='" + people[i].People_licence + "'>";
-
-                        // execute a function when someone clicks on the item value (DIV element)
-                        b.addEventListener("click", function (e) {
-                            // insert the value for the autocomplete text field
-                            inpElement.value = this.getElementsByTagName("input")[0].value;
-                            // close the list of autocompleted values (or any other open lists of autocompleted values)
-                            closeAllLists();
-                        });
-                        a.appendChild(b);
-                    }
-                }
-            }
-        };
-        // xhr.open("GET", "inc/get_people.php?q=" + inpElement.value, true);
-        xhr.open("GET", "inc/get_people.php?q=" + encodeURIComponent(inpElement.value.replace(/\s+/g, "")), true);
-        document.getElementById("ownerAutocomplete")
-        xhr.send();
-    });
-
-    // execute a function presses a key on the keyboard:
-    inpElement.addEventListener("keydown", function (e) {
-        var x = document.getElementById(this.id + "autocomplete-list");
-        if (x) x = x.getElementsByTagName("div");
-        if (e.keyCode == 40) {
-            // If the arrow DOWN key is pressed, increase the currentFocus variable
-            currentFocus++;
-            // and make the current item more visible
-            addActive(x);
-        } else if (e.keyCode == 38) { //up
-            // If the arrow UP key is pressed, decrease the currentFocus variable
-            currentFocus--;
-            // and make the current item more visible
-            addActive(x);
-        } else if (e.keyCode == 13) {
-            // If the ENTER key is pressed, prevent the form from being submitted
-            e.preventDefault();
-            if (currentFocus > -1) {
-                // simulate a click on the "active" item
-                if (x) x[currentFocus].click();
-            }
-        }
-    });
-
-    function addActive(x) {
-        /*a function to classify an item as "active":*/
-        if (!x) return false;
-        /*start by removing the "active" class on all items:*/
-        removeActive(x);
-        if (currentFocus >= x.length) currentFocus = 0;
-        if (currentFocus < 0) currentFocus = (x.length - 1);
-        /*add class "autocomplete-active":*/
-        x[currentFocus].classList.add("autocomplete-active");
-    }
-    function removeActive(x) {
-        /*a function to remove the "active" class from all autocomplete items:*/
-        for (var i = 0; i < x.length; i++) {
-            x[i].classList.remove("autocomplete-active");
-        }
-    }
-    function closeAllLists(elmnt) {
-        /*close all autocomplete lists in the document,
-        except the one passed as an argument:*/
-        var x = document.getElementsByClassName("autocomplete-items");
-        for (var i = 0; i < x.length; i++) {
-            if (elmnt != x[i] && elmnt != inpElement) {
-                x[i].parentNode.removeChild(x[i]);
-            }
-        }
-    }
-    /*execute a function when someone clicks in the document:*/
-    document.addEventListener("click", function (e) {
-        closeAllLists(e.target);
-    });
-}
-
-
-
-function filterTable(inputID, tableID, columnNames) {
-    var input, filter, table, tr, columnIndices = [], i, j, txtValue;
-    input = document.getElementById(inputID);
-    filter = input.value.toUpperCase().replace(/\s+/g, "");
-    table = document.getElementById(tableID);
-    tr = table.getElementsByTagName("tr");
-
-    // find the indices of the columns to be filtered by name
-    if (tr.length > 0) {
-        var headers = tr[0].getElementsByTagName("th");
-        for (i = 0; i < headers.length; i++) {
-            if (columnNames.indexOf(headers[i].textContent) > -1) {
-                columnIndices.push(i);
-            }
-        }
-    }
-
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 1; i < tr.length; i++) { // start from 1 to skip the header row
-        var displayRow = false;
-
-        // check if any of the columns contains the filter
-        for (j = 0; j < columnIndices.length; j++) {
-            var td = tr[i].getElementsByTagName("td")[columnIndices[j]];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    displayRow = true;
-                    break;
-                }
-            }
-        }
-
-        // display the row if any of the columns contains the filter
-        tr[i].style.display = displayRow ? "" : "none";
-    }
-}
-
-
-function filterTableByName(inputName, tableID, columnNames) {
-    var input, filter, table, tr, columnIndices = [], i, j, txtValue;
-    // input = document.getElementById(inputID);
-    input = document.getElementsByName(inputName)[0];
-    filter = input.value.toUpperCase().replace(/\s+/g, "");
-    table = document.getElementById(tableID);
-    tr = table.getElementsByTagName("tr");
-
-    // find the indices of the columns to be filtered by name
-    if (tr.length > 0) {
-        var headers = tr[0].getElementsByTagName("th");
-        for (i = 0; i < headers.length; i++) {
-            if (columnNames.indexOf(headers[i].textContent) > -1) {
-                columnIndices.push(i);
-            }
-        }
-    }
-
-    // Loop through all table rows, and hide those who don't match the search query
-    for (i = 1; i < tr.length; i++) { // start from 1 to skip the header row
-        var displayRow = false;
-
-        // check if any of the columns contains the filter
-        for (j = 0; j < columnIndices.length; j++) {
-            var td = tr[i].getElementsByTagName("td")[columnIndices[j]];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    displayRow = true;
-                    break;
-                }
-            }
-        }
-
-        // display the row if any of the columns contains the filter
-        tr[i].style.display = displayRow ? "" : "none";
-    }
-}
-
-
-function addNewPersonToDatabase() {
-    var personName = document.getElementById('personName').value;
-    var licenceNum = document.getElementById('licenceNum').value;
-    var personDOB = document.getElementById('personDOB').value;
-    var penaltyPoints = document.getElementById('penaltyPoints').value;
-    var address = document.getElementById('address').value;
-
-    // send the data to the server
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            // document.getElementById('addNewPersonInfo').innerHTML = this.responseText;
-            // document.getElementById('addNewPersonInfo').value = this.responseText;
-
-        }
-    };
-    xhttp.open("POST", "inc/add_new_person.php", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send("personName=" + personName + "&licenceNum=" + licenceNum + "&personDOB=" + personDOB + "&penaltyPoints=" + penaltyPoints + "&address=" + address);
-
-
-
-    // var formData = new FormData(this);
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("POST", targetUrl, true);
-
-    xhttp.onload = function () {
-        if (this.status == 200) {
-            document.querySelector(".feedback-container").innerHTML = this.responseText;
-        }
-    };
-
-    // xhr.send(formData);
-}
-
-
-if (document.getElementById("query_people")) {
-    document.getElementById("query_people").addEventListener("keydown", function (event) {
-        if (event.key === "Enter") {
-            event.preventDefault();
-            document.querySelector("#query_people button[type='submit']").click();
-        }
-    });
-}
-
-
-
-function includeHTML() {
-    var z, i, elmnt, file, xhttp;
-    // loop through a collection of all HTML elements
-    z = document.getElementsByTagName("*");
-    for (i = 0; i < z.length; i++) {
-        elmnt = z[i];
-        // search for elements with a certain attribute
-        file = elmnt.getAttribute("include-html");
-        if (file) {
-
-            // make an HTTP request using the attribute value as the file name:
-            xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function () {
-                if (this.readyState == 4) {
-                    if (this.status == 200) { elmnt.innerHTML = this.responseText; }
-                    if (this.status == 404) { elmnt.innerHTML = "Page not found."; }
-
-                    // remove the attribute, and call this function once more
-                    elmnt.removeAttribute("include-html");
-                    includeHTML();
-                }
-            }
-            xhttp.open("GET", file, true);
-            xhttp.send();
-
-            return;
-        }
-    }
-}
-
-// document.addEventListener("DOMContentLoaded", function() {
-//     var tocList = document.getElementById("tocList");
-//     var headings = document.querySelectorAll("h1, h2, h3, h4, h5, h6");
-
-//     headings.forEach(function(heading) {
-//         var tocItem = document.createElement("li");
-//         var tocLink = document.createElement("a");
-
-//         tocLink.href = "#" + heading.id;
-//         tocLink.textContent = heading.textContent;
-
-//         tocItem.appendChild(tocLink);
-//         tocList.appendChild(tocItem);
-//     });
-// });
-
-fetch('inc/header.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('header-placeholder').innerHTML = data;
-    });
-
-fetch('inc/footer.html')
-    .then(response => response.text())
-    .then(data => {
-        document.getElementById('footer-placeholder').innerHTML = data;
-    });
