@@ -4,11 +4,11 @@
 
 - [Guide](/guide.md)
 
-- [Content](/content/readme.md)
-  - [GAN](/content/GAN.md)
-  - [Test](/content/test.md)
+- [Content](/docs/content/readme.md)
+  - [GAN](/docs/content/GAN.md)
+  - [Test](/docs/content/test.md)
 
-- [modules:](/modules/)
-  - [4039 DIS](/modules/DIS.md)
-  - [4035 System and Networks](/modules/4035.md)
-  - [4008 Programming](/modules/programming.md)
+- [Class](/docs/class/)
+  - [4039 DIS](/docs/class/DIS.md)
+  - [4035 System and Networks](/docs/class/4035.md)
+  - [4008 Programming](/docs/class/programming.md)
