@@ -53,8 +53,9 @@ aside.nav.nothing {
     border-left-color: rgba(0, 0, 0, 0.07);
     border-image-slice: 1;
     padding-left: 5px;
-    right: 0;
+    right: 20px;
     top: 3rem;
+    overflow-y: auto;
 }
 
 .page_toc h3 {
@@ -79,7 +80,7 @@ aside.nav.nothing {
     margin: 0px 0 0px 9px;
     padding-bottom: 5px;
     font-weight: 600;
-    font-size: 1.2em;
+    font-size: 1em;
 }
 
 .page_toc .anchor:hover:after {
@@ -107,8 +108,8 @@ aside.nav.nothing {
     color: var(--color-text, #10263B);
     /* color: #f20b0b; */
     text-decoration: none;
-    line-height: 1.6em;
-    font-size: 16px;
+    line-height: 1.5em;
+    font-size: 15px;
     font-weight: 500;
 }
 
@@ -135,6 +136,17 @@ aside.nav.nothing {
 }
 
 @media screen and (max-width: 1300px) {
+    main {
+        margin-right: 10%;
+        transform: translateX(-100px);
+        width: 90%;
+    }
+
+    .sidenav {
+        width: 0;
+        z-index: 999;
+    }
+
     .page_toc {
         position: relative;
         left: 0;
@@ -143,6 +155,7 @@ aside.nav.nothing {
         border: none;
         border-bottom: 1px solid #ddd;
         font-size: 1.0em;
+        /* overflow: auto; */
     }
 
     .page_toc a:before {
@@ -151,7 +164,7 @@ aside.nav.nothing {
 
     .nav {
         margin: 0 auto;
-        width: 800px;
+        width: 90%;
     }
 
     .page_toc p.title {
@@ -168,6 +181,16 @@ aside.nav.nothing {
     }
 }
 
+@media screen and (max-width: 1100px) {
+
+
+    main {
+        transform: translateX(-100px);
+        width: 90%;
+        /* margin-right: 10%; */
+    }
+}
+
 .page_toc .active {
     border-left: 5px solid;
     color: var(--color-link, #D7336C);
@@ -178,19 +201,19 @@ aside.nav.nothing {
     color: var(--color-link, #D7336C);
 }
 
-.page_toc .active > a:hover {
+.page_toc .active>a:hover {
     color: var(--color-link, #D7336C);
 }
 
-.page_toc .active > a:hover span {
+.page_toc .active>a:hover span {
     color: var(--color-link, #D7336C);
 }
 
-.page_toc .active > a span {
+.page_toc .active>a span {
     color: var(--color-link, #D7336C);
 }
 
-.page_toc .active > a span:hover {
+.page_toc .active>a span:hover {
     color: var(--color-link, #D7336C);
 }
 

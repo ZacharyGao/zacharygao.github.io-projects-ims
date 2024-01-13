@@ -119,12 +119,12 @@ function toggleNav() {
     var mainContent = document.getElementsByTagName("main");
 
     for (var i = 0; i < sideNavs.length; i++) {
-        if (sideNavs[i].style.width == "15%") {
+        if (sideNavs[i].style.width == "15rem") {
             sideNavs[i].style.width = "0";
             sessionStorage.setItem("sideNavState", "closed");
 
         } else {
-            sideNavs[i].style.width = "15%";
+            sideNavs[i].style.width = "15rem";
             sessionStorage.setItem("sideNavState", "open");
         }
     }
@@ -167,7 +167,7 @@ function checkNavState() {
     }
     else {
         for (var i = 0; i < sideNavs.length; i++) {
-            sideNavs[i].style.width = "15%";
+            sideNavs[i].style.width = "15rem";
         }
         for (var i = 0; i < mainContent.length; i++) {
             mainContent[i].style.marginLeft = "20%";

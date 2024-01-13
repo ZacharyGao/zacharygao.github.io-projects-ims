@@ -73,7 +73,9 @@ header,
 main {
     margin: 0 auto;
     max-width: var(--width-content);
+    float: center;
     margin-left: 20%;
+    margin-right: 25rem;
     padding: 3rem 0rem;
     transition: margin-left .5s;
     font-weight: 400;
@@ -284,7 +286,7 @@ nav ul li ul li a {
 /* Side Nav Bar */
 .sidenav {
     height: 100%;
-    width: 15%;
+    width: 15rem;
     position: fixed;
     /* z-index: 1; */
     top: 0;
@@ -402,7 +404,7 @@ nav ul li ul li a {
 }
 
 .sidenav ul li.active {
-    
+
     background-color: #D7336C;
     color: white;
 
@@ -466,7 +468,7 @@ nav ul li ul li a {
     line-height: var(--line-height);
     margin: 0.5rem 0.5rem;
     padding: 0.3rem 0.6rem;
-
+    z-index: 9999;
 }
 
 .openbtn:hover {
@@ -488,6 +490,26 @@ nav ul li ul li a {
     /* margin-bottom: 0rem  */
 }
 
+@media screen and (max-width: 1100px) {
+    .sidenav {
+        height: 100%;
+        width: 200px;
+        position: fixed;
+        display: block;
+        z-index: 999;
+    }
+
+    main {
+        transform: translateX(-100px);
+        width: 90%;
+        /* margin-right: 10%; */
+    }
+
+    footer {
+        transform: translateX(-100px);
+        width: 90%;
+    }
+}
 
 /* Typography */
 code,
